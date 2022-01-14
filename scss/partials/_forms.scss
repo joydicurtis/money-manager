@@ -1,0 +1,99 @@
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+textarea {
+    width: 100%;
+    padding: 7px 10px 8px;
+    font-family: $font-base;
+    font-size: $fontSize-base;
+    line-height: $lineHeight-base;
+    border: 1px solid $color-primary;
+    border-radius: 0;
+    -webkit-appearance: none;
+    &:focus {
+    }
+    &::placeholder {
+
+    }
+}
+textarea {
+    resize: vertical;
+    height: 150px;
+}
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+.btn {
+    display: inline-block;
+    margin: 12px 0;
+    padding: 8px;
+    text-align: center;
+    text-decoration: none;
+    font-family: $font-base;
+    font-size: $fontSize-base;
+    line-height: $lineHeight-base;
+    border-radius: 0;
+    border: 1px solid $black;
+    color: $black;
+    transition: all .3s ease-out;
+    -webkit-appearance: none;
+    appearance: none;
+    &:hover,
+    &:active {
+        cursor: pointer;
+    }
+}
+.btn--fullWidth {
+    width: 100%;
+}
+
+.form {
+    margin-left: -5px;
+    margin-right: -5px;
+    @include breakpoint(medium) {
+        margin-left: -11px;
+        margin-right: -11px;
+    }
+    .form-item {
+        margin-bottom: 10px;
+        padding: 0 5px;
+        @include breakpoint(medium) {
+            width: auto;
+            margin-bottom: 22px;
+            padding-left: 11px;
+            padding-right: 11px;
+        }
+        &.form-item--half {
+            @include breakpoint(medium) {
+                float: left;
+                width: 50%;
+            }
+        }
+        .wpcf7-not-valid {
+            border-color: $color-secondary;
+        }
+    }
+    .wpcf7-not-valid-tip {
+        position: relative;
+        top: 5px;
+        left: 10px;
+        color: $color-secondary;
+    }
+}
+div.wpcf7-response-output {
+    margin: 0 0 15px;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.form--contact {
+    margin-top: 20px;
+    .form-item--action {
+        text-align: center;
+        .btn {
+            width: 245px;
+        }
+    }
+}
