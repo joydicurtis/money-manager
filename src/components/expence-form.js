@@ -1,6 +1,7 @@
 import { Component } from "../core/component";
 import { Form } from "../core/form";
 import { Validators } from "../core/validators";
+import { apiService } from "../services/api.service";
 
 export class ExpenceFormComponent extends Component {
     constructor(id) {
@@ -16,13 +17,14 @@ export class ExpenceFormComponent extends Component {
     }
 }
 
-function submitHandler(event) {
+async function submitHandler(event) {
     event.preventDefault();
     if (this.form.isValid()) {
         const formData = {
             expenceSum: this.$el.expenceSum.value,
             ...this.form.value()
         }
+        await apiService.createExpence(formData);
         this.form.clear();
     }
 }
