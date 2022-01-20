@@ -26,6 +26,10 @@ $content-gutters: 25px;
     padding-bottom: 0;
 }
 
+.container {
+    width: 100%;
+    padding: 0 16px;
+}
 
 //in case we have sidebar
 $sidebar-width: 300px;

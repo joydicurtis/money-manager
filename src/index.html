@@ -7,15 +7,42 @@
         <title></title>
         <link rel="shortcut icon" href="favicon.ico">
         <!-- CSS -->
-        <link rel="stylesheet" href="css/application.css">
+        <link rel="stylesheet" href="css/application.min.css">
     </head>
     <body>
         <div class="siteContent">
             <header class="siteHeader" id="header">
                 <h1>Header</h1>
             </header>
+            <ul class="tabs" id="navigation">
+                <li>
+                    <a href="#" class="tabs-item tabs-item_active" data-name="expences">Expences</a>
+                </li>
+                <li>
+                    <a href="#" class="tabs-item" data-name="incomings">Incomings</a>
+                </li>
+            </ul>
             <main>
-                Content
+                <div class="container">
+                    <div id="expences">
+                        <button type="button" class="btn btn-primary" id="add-expence">+</button>
+                        <div class="dialog-sum u-hidden" id="sum-dialog">
+                            <div class="dialog-sum-content">
+                                <form id="expence-create">
+                                    <button type="button" class="btn btn-secondary" id="dialog-close">X</button>
+                                    <div class="form-control">
+                                        <label>Sum</label>
+                                        <input type="text" name="expenceSum" placeholder="Input">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Add!</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="invoices" class="u-hidden">
+                        Invoices
+                    </div>
+                </div>
             </main>
         </div>
         <footer class="siteFooter">

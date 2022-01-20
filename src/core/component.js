@@ -7,11 +7,11 @@ export class Component {
     init() {}
 
     hide() {
-        this.$el.classList.add('hide');
+        this.$el.classList.add('u-hidden');
     }
 
     show() {
-        this.$el.classList.remove('hide');
+        this.$el.classList.remove('u-hidden');
     }
 }
 

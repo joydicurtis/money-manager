@@ -1,7 +1,9 @@
 const HTMLPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: ['@babel/polyfill', './src/index.js'],
+    entry: ['@babel/polyfill', 
+            './src/index.js',
+            './src/scss/application.scss'],
     output: {
         path: __dirname + '/dist',
         filename: 'bundle.js'
@@ -29,7 +31,18 @@ module.exports = {
                 presets: ['@babel/preset-env']
               }
             }
-          }
+          },
+          {
+            test: /\.scss$/,
+            exclude: /node_modules/,
+            use: [
+                {
+                    loader: 'file-loader',
+                    options: { outputPath: 'css/', name: '[name].min.css'}
+                },
+                'sass-loader'
+            ]
+          } 
         ]
     }
 }

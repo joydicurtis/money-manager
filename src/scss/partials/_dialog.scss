@@ -1,0 +1,26 @@
+.dialog-sum {
+    position: fixed;
+    background: rgba(0, 0, 0, .5);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 16px;
+    .dialog-sum-content {
+        position: absolute;
+        top: 50%;
+        left: 16px;
+        right: 16px;
+        margin-top: -50%;
+        box-shadow: 1px 1px 10px rgba(0, 0, 0, .2);
+        background: $white;
+        padding: 0 16px;
+        @include breakpoint(medium) {
+            margin-left: -250px;
+            margin-top: -250px;
+            width: 500px;
+            height: 500px;
+            left: 50%;
+        }
+    }
+}
