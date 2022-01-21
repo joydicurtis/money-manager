@@ -6,12 +6,21 @@ export class Component {
 
     init() {}
 
-    hide() {
-        this.$el.classList.add('u-hidden');
+    onShow() {
+        
     }
 
+    onHide() {
+
+    }
+
+    hide() {
+        this.$el.classList.add('u-hidden');
+        this.onHide();
+    }
     show() {
         this.$el.classList.remove('u-hidden');
+        this.onShow();
     }
 }
 
