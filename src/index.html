@@ -12,7 +12,9 @@
     <body>
         <div class="siteContent">
             <header class="siteHeader" id="header">
-                <h1>Header</h1>
+                <ul>
+                    <li><a href="/all.html">All</a></li>
+                </ul>
             </header>
             <ul class="tabs" id="navigation">
                 <li>
@@ -29,22 +31,25 @@
                 <div class="container">
                     <div id="expences">
                         <button type="button" class="btn btn-primary" id="add-expence">+</button>
-                        <div class="dialog-sum u-hidden" id="sum-dialog">
+                        <div id="expences-list"></div>
+                        <div class="dialog-sum u-hidden" id="sum-e-dialog">
                             <div class="dialog-sum-content">
                                 <form id="expence-create">
-                                    <button type="button" class="btn btn-secondary" id="dialog-close">X</button>
-                                    <div class="form-control">
-                                        <label>Sum</label>
-                                        <input type="text" name="expenceSum" placeholder="Input">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Add!</button>
+                                    <div class="dialog-sum-container" id="expenceContainer"></div>
                                 </form>
                             </div>
                         </div>
-                        <div id="expences-list"></div>
                     </div>
-                    <div id="invoices" class="u-hidden">
-                        Invoices
+                    <div id="incomings" class="u-hidden">
+                        <div id="incomings-list"></div>
+                        <button type="button" class="btn btn-primary" id="add-incoming">+</button>
+                        <div class="dialog-sum u-hidden" id="sum-i-dialog">
+                            <div class="dialog-sum-content">
+                                <form id="incoming-create">
+                                    <div class="dialog-sum-container" id="expenceContainer"></div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </main>
@@ -52,8 +57,5 @@
         <footer class="siteFooter">
             <h1>Footer</h1>
         </footer>
-        <script src="js/vendor/jquery-3.1.0.min.js"></script>
-        <script src="js/vendor.min.js"></script>
-        <script src="js/app.min.js"></script>
     </body>
 </html>

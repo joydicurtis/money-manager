@@ -1,6 +1,6 @@
 import { Component } from "../core/component";
 
-export class dialogSumComponent extends Component {
+export class DialogSumComponent extends Component {
     constructor(id) {
         super(id);
     }
@@ -17,7 +17,7 @@ export class dialogSumComponent extends Component {
 function handleButton(event) {
     if (event.target.id === 'dialog-close') {
         this.dialog.forEach(item => {
-            item.component.hide();
+            item.component.hide()
         })
     }
 }

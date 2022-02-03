@@ -4,10 +4,7 @@ export class Component {
         this.init();
     }
 
-    init() {}
-
     onShow() {
-        
     }
 
     onHide() {
@@ -16,11 +13,11 @@ export class Component {
 
     hide() {
         this.$el.classList.add('u-hidden');
-        this.onHide();
+        //this.onHide();
     }
     show() {
         this.$el.classList.remove('u-hidden');
-        this.onShow();
+        //this.onShow();
     }
 }
 

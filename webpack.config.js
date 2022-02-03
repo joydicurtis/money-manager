@@ -15,7 +15,7 @@ module.exports = {
         new HTMLPlugin({
             filename: 'index.html',
             template: './src/index.html'
-        })
+        }),
     ],
     resolve: {
         extensions: ['.js']

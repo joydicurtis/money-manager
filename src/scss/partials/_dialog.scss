@@ -4,17 +4,22 @@
     top: 0;
     bottom: 0;
     left: 0;
-    right: 0;
-    padding: 0 16px;
+    right: 15px;
     .dialog-sum-content {
-        position: absolute;
-        top: 50%;
+        position: relative;
+        border-radius: 16px;
+        top: 0;
         left: 16px;
         right: 16px;
-        margin-top: -50%;
+        margin-top: 0;
         box-shadow: 1px 1px 10px rgba(0, 0, 0, .2);
+        border: solid 1px rgba($white, .2);
         background: $white;
         padding: 0 16px;
+        background: $black;
+        max-height: 600px;
+        overflow: hidden;
+        padding-bottom: 100px;
         @include breakpoint(medium) {
             margin-left: -250px;
             margin-top: -250px;
@@ -22,5 +27,17 @@
             height: 500px;
             left: 50%;
         }
+    }
+    .dialog-sum-container {
+        height: 600px;
+        overflow: auto;
+    }
+    .dialog-sum-buttons {
+        background: white;
+        margin: 0 -16px;
+        padding: 0 16px;
+        position: absolute;
+        width: 100%;
+        bottom: 0;
     }
 }

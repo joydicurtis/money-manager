@@ -1,28 +1,36 @@
 import { HeaderComponent } from "./components/header.component";
 import { NavigationComponent } from "./components/navigation.component";
-import { ExpencesComponent } from "./components/expences";
-import { IncomingsComponent } from "./components/incomings";
-import { dialogSumComponent } from "./components/dialog-sum";
-import { ExpenceFormComponent } from "./components/expence-form";
+import { ExpencesComponent } from "./components/expences.component";
+import { IncomingsComponent } from "./components/incomings.component";
+import { IncDialogComponent } from "./components/inc-dialog.component";
+import { DialogSumComponent } from "./components/dialog-sum.component";
+import { ExpenceFormComponent } from "./components/expence-form.component";
 import { LoaderComponent } from "./components/loader.component";
- 
+import { ExpencesListComponent } from "./components/expences-list.component";
+//import { CategoriesComponent } from "./components/categories.component";
+import '@fortawesome/fontawesome-free/js/all.js';
+export const expencesList = document.getElementById('expences-list');
+export const incomingsList = document.getElementById('incomings-list');
+const sumDialog = new DialogSumComponent('sum-e-dialog');
+const incDialog = new IncDialogComponent('sum-i-dialog');
 const header = new HeaderComponent('header');
 const navigation = new NavigationComponent('navigation');
-const incomings = new IncomingsComponent('invoices');
-const sumDialog = new dialogSumComponent('sum-dialog');
-const expenceForm = new ExpenceFormComponent('expence-create');
 const loader = new LoaderComponent('loader');
-const expences = new ExpencesComponent('expences', {loader});
+const incomings = new IncomingsComponent('incomings', {loader}, {incDialog}, incomingsList);
+//const categories = new CategoriesComponent('categories');
+const expences = new ExpencesComponent('expences', {loader}, {sumDialog}, expencesList);
+//const expenceForm = new ExpenceFormComponent('expence-create', {loader}, {sumDialog}, {expencesList});
 
 navigation.registerTabs([
+    { name: 'incomings', component: incomings},
     { name: 'expences', component: expences},
-    { name: 'incomings', component: incomings}
-]);
-
-expences.registerDialog([
-    { name: 'sum-dialog', component: sumDialog}
+    
 ]);
 
 sumDialog.registerDialog([
-    { name: 'sum-dialog', component: sumDialog}
-])
+    { name: 'sum-dialog', component: sumDialog } 
+]);
+
+incDialog.registerIncDialog([
+    { name: 'inc-dialog', component: incDialog}
+]);
