@@ -9,30 +9,28 @@
         <!-- CSS -->
         <link rel="stylesheet" href="css/application.min.css">
     </head>
-    <body id="body">
+    <body>
         <div class="siteContent">
+            <header class="siteHeader" id="header">
+                <ul>
+                    <li><a href="all.html"></a></li>
+                </ul>
+            </header>
+            <ul class="tabs" id="navigation">
+                <li>
+                    <a href="#" class="tabs-item tabs-item_active" data-name="expences">Expences</a>
+                </li>
+                <li>
+                    <a href="#" class="tabs-item" data-name="incomings">Incomings</a>
+                </li>
+            </ul>
             <div class="loader-wrap u-hidden" id="loader">
                 <div class="lds-ripple"><div></div><div></div></div>
             </div>
             <main>
-                <header class="siteHeader" id="header">
-                    Header
-                </header>
-                <ul class="tabs" id="navigation">
-                    <li>
-                        <a href="#" class="tabs-item tabs-item_active" data-name="all">All</a>
-                    </li>
-                    <li>
-                        <a href="#" class="tabs-item" data-name="expences">Expences</a>
-                    </li>
-                    <li>
-                        <a href="#" class="tabs-item" data-name="incomings">Incomings</a>
-                    </li>
-                </ul>
                 <div class="container">
-                    <div id="all-operations"></div>
-                    <div id="expences" class="u-hidden">
-                        <button type="button" class="btn btn-primary" id="add-expence"><i class="fas fa-plus" style="pointer-events:none"></i></button>
+                    <div id="expences">
+                        <button type="button" class="btn btn-primary" id="add-expence">+</button>
                         <div id="expences-list"></div>
                         <div class="dialog-sum u-hidden" id="sum-e-dialog">
                             <div class="dialog-sum-content">
@@ -44,9 +42,13 @@
                     </div>
                     <div id="incomings" class="u-hidden">
                         <div id="incomings-list"></div>
-                        <button type="button" class="btn btn-primary" id="add-incoming"><i class="fas fa-plus" style="pointer-events:none"></i></button>
+                        <button type="button" class="btn btn-primary" id="add-incoming">+</button>
                         <div class="dialog-sum u-hidden" id="sum-i-dialog">
-                            <div class="dialog-sum-content"></div>
+                            <div class="dialog-sum-content">
+                                <form id="incoming-create">
+                                    <div class="dialog-sum-container" id="expenceContainer"></div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

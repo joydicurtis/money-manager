@@ -7,10 +7,14 @@ import { DialogSumComponent } from "./components/dialog-sum.component";
 import { ExpenceFormComponent } from "./components/expence-form.component";
 import { LoaderComponent } from "./components/loader.component";
 import { ExpencesListComponent } from "./components/expences-list.component";
+import { AllOperationsComponent} from "./components/all-operations.component";
 //import { CategoriesComponent } from "./components/categories.component";
+
 import '@fortawesome/fontawesome-free/js/all.js';
 export const expencesList = document.getElementById('expences-list');
 export const incomingsList = document.getElementById('incomings-list');
+
+const allOperations = new AllOperationsComponent('all-operations');
 const sumDialog = new DialogSumComponent('sum-e-dialog');
 const incDialog = new IncDialogComponent('sum-i-dialog');
 const header = new HeaderComponent('header');
@@ -22,9 +26,9 @@ const expences = new ExpencesComponent('expences', {loader}, {sumDialog}, expenc
 //const expenceForm = new ExpenceFormComponent('expence-create', {loader}, {sumDialog}, {expencesList});
 
 navigation.registerTabs([
+    { name: 'all', component: allOperations},
     { name: 'incomings', component: incomings},
     { name: 'expences', component: expences},
-    
 ]);
 
 sumDialog.registerDialog([

@@ -1,25 +1,22 @@
 .dialog-sum {
     position: fixed;
-    background: rgba(0, 0, 0, .5);
+    background: rgba(255, 255, 255, 0.5);
     top: 0;
     bottom: 0;
     left: 0;
-    right: 15px;
+    right: 0;
     .dialog-sum-content {
-        position: relative;
+        position: absolute;
+        top: 50%;
         border-radius: 16px;
-        top: 0;
-        left: 16px;
-        right: 16px;
         margin-top: 0;
-        box-shadow: 1px 1px 10px rgba(0, 0, 0, .2);
+        box-shadow: 0 0 10px rgba(0, 0, 0, .7);
         border: solid 1px rgba($white, .2);
-        background: $white;
-        padding: 0 16px;
         background: $black;
-        max-height: 600px;
+        max-height: 90vh;
+        overflow: auto;
+        margin: -45vh 16px 0;
         overflow: hidden;
-        padding-bottom: 100px;
         @include breakpoint(medium) {
             margin-left: -250px;
             margin-top: -250px;
@@ -27,17 +24,48 @@
             height: 500px;
             left: 50%;
         }
+        .form-control {
+            padding: 0 16px;
+            margin-bottom: 16px;
+        }
     }
     .dialog-sum-container {
-        height: 600px;
-        overflow: auto;
+        max-height: 600px;
+        overflow-y: auto;
+        border-top: solid 1px $sh-white;
+        border-bottom: solid 1px $sh-white;
+        padding: 16px 0 50px;
+    }
+    .dialog-sum-header {
+        display: flex;
+        padding: 8px 16px;
+        justify-content: space-between;
+        align-items: center;
+        h1 {
+            font-size: 16px;
+            margin-bottom: 0;
+        }
+        .btn {
+            padding: 0;
+            font-size: 20px;
+            color: $white;
+            height: 32px;
+            width: 32px;
+        }
     }
     .dialog-sum-buttons {
-        background: white;
-        margin: 0 -16px;
-        padding: 0 16px;
+        display: flex;
+        justify-content: flex-end;
+        border-top: solid 1px $sh-white;
+        background: $black;
+        padding: 8px 16px;
         position: absolute;
         width: 100%;
         bottom: 0;
+        .btn {
+            &:first-child {
+                margin-right: 5px;
+            }
+        }
     }
 }

@@ -25,13 +25,13 @@ export const expencesCategories = [
     { name: 'Other', class: 'fas fa-coins'}
 ]
 export const incomingsCategories = [
-    { name: 'Salary'},
-    { name: 'Freelance'},
-    { name: 'Investments'},
-    { name: 'Dividents'},
-    { name: 'Awards'},
-    { name: 'Rental'},
-    { name: 'Other'}
+    { name: 'Salary', class: 'fas fa-money-bill'},
+    { name: 'Freelance', class: 'fas fa-laptop"'},
+    { name: 'Investments', class: 'fas fa-briefcase'},
+    { name: 'Dividents', class: 'fas fa-seedling'},
+    { name: 'Awards', class: 'fas fa-trophy'},
+    { name: 'Rental', class: 'fas fa-home'},
+    { name: 'Other', class: 'fas fa-coins'}
 ]
 
 

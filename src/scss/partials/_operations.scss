@@ -1,0 +1,74 @@
+.expences-list-item {
+    .expences-list-item-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+        margin-bottom: 12px;
+        padding: 4px 0;
+        .expences-list-item__icon {
+            height: 40px;
+            span {
+                display: inline-block;
+                flex: 40px 0 0;
+                text-align: center;
+                line-height: 40px;
+                border-radius: 8px;
+                background: $sh-white;
+                border: solid 1px $sh-white;
+                margin-right: 8px;
+                font-size: 16px;
+                width: 40px;
+                height: 40px;
+            }
+        }
+        .expences-list-item-info-item {
+            display: flex;
+        }
+        .expences-list-item-text {
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .expences-list-item-text_cat {
+            font-weight: $fontWeight-semibold;
+        }
+        .expences-list-item__date {
+            font-size: 10px;
+            color: $sh-white;
+        }
+    }
+    &.incoming {
+        .expences-list-item__icon {
+            span {
+                color: $green;
+                border: solid 1px $green;
+            }
+        }
+    }
+    &.expence {
+        .expences-list-item__icon {
+            span {
+                color: $red;
+                border: solid 1px $red;
+            }
+        }
+    }
+    .expences-list-item__sum {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        font-size: 18px;
+        span {
+            margin-right: 10px;
+        }
+        .btn {
+            padding: 0;
+        }
+    }
+}
+
+#all-operations {
+    .js-edit-expence {
+        display: none;
+    }    
+}

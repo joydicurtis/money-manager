@@ -10,10 +10,17 @@ textarea {
     font-family: $font-base;
     font-size: $fontSize-base;
     line-height: $lineHeight-base;
-    background: lighten($color-secondary, 20%);
-    border: solid 2px $color-secondary;
+    background: $sh-white;
+    border: solid 2px $sh-white;
     border-radius: 4px;
     -webkit-appearance: none;
+    color: $white;
+    &.invalid {
+        border: solid 2px red;
+        &::placeholder {
+            color: red;
+        }
+    }
     &:focus,
     &:focus-visible {
         transition: all .3s ease-in-out;
@@ -21,7 +28,7 @@ textarea {
         outline: $color-primary;
     }
     &::placeholder {
-
+        color: $white;
     }
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
@@ -30,11 +37,18 @@ textarea {
     }
 }
 
+.validation-error {
+    font-size: 12px;
+    color: red;
+    font-weight: 600;
+}
+
 
 textarea {
     resize: vertical;
     height: 75px;
 }
+
 button,
 input[type="button"],
 input[type="reset"],
@@ -62,8 +76,8 @@ input[type="submit"],
 
 label {
     display: block;
-    font-weight: 500;
-    font-size: $fontSize-small;
+    font-weight: $fontWeight-semibold;
+    font-size: 12px;
 }
 
 .converter-form {
@@ -95,11 +109,13 @@ label {
 
 .btn {
     padding: 6px 16px 7px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
     &.btn-primary {
         border: solid 2px $color-primary;
         background: $color-primary;
         color: $white;
-
     }
     &.btn-secondary {
         border: solid 2px transparent;

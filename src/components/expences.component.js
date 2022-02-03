@@ -25,6 +25,7 @@ export class ExpencesComponent extends Component {
         }
         if (dialog) {
             dialog.$el.addEventListener('submit', submitHandler.bind(this), false);
+            dialog.$el.addEventListener('change', radioHandler.bind(this));
         }
     }
 
@@ -38,19 +39,30 @@ function renderCategories(category, selectedCat) {
     if ((typeof selectedCat !== 'undefined') && (category.name === selectedCat)) {
         return `
         <li>
-            <input type="radio" id="${category.name}" name="category" value="${category.name}" checked>
-            <label for="${category.name}">${category.name}</label>
+            <div class="categories-item">
+                <input type="radio" id="${category.name}" name="category" value="${category.name}" checked data-class="${category.class}">
+                <label for="${category.name}"><span><i class="${category?.class}"></i></span>${category.name}</label>
+            </div>
         </li>
     `
     } 
     else {
         return `
             <li>
-                <input type="radio" id="${category.name}" name="category" value="${category.name}">
-                <label for="${category.name}">${category.name}</label>
+                <div class="categories-item">
+                    <input type="radio" id="${category.name}" name="category" value="${category.name}" data-class="${category.class}">
+                    <label for="${category.name}"><span><i class="${category?.class}"></i></span>${category.name}</label>
+                </div>
             </li>
         `
     }
+}
+
+function radioHandler() {
+    const radioButtons = document.querySelectorAll('input[name="category"]');
+    radioButtons.forEach(item => {
+        item.checked ? item.classList.add('selected') : item.classList.remove('selected');
+    });
 }
 
 async function submitHandler(event) {
@@ -61,40 +73,50 @@ async function submitHandler(event) {
             expenceSum: [Validators.required, Validators.minLength(1)]
         });
         this.loader.show();
+        let selectedCatClass;
         if (this.form.isValid()) {
+            form.category.forEach(item => {
+                if (item.checked) {
+                    selectedCatClass = item.dataset.class;
+                }
+            })
             const formData = {
                 expenceSum: form.expenceSum.value,
                 category: form.category.value,
+                categoryClass: selectedCatClass,
                 expenceNote: form.expenceNote.value,
-                date: new Date().toLocaleDateString(),
+                operation: 'expence',
+                date: new Date().toLocaleString(),
                 ...this.form.value()
             }
             if (event.submitter.id === 'btn-add-ex') {
                 await dataHandler.addExpence(formData);
-                this.dialog.hide();
+                this.dialog.dialogOnHide();
             }
             if (event.submitter.id === 'btn-save-ex') {
                 await dataHandler.updateExpence(event.submitter.dataset.id, formData);
-                this.dialog.hide();
+                this.dialog.dialogOnHide();
             }
             this.loader.hide();
             this.form.clear();
         }
         if (event.submitter.id === 'btn-remove') {
             await dataHandler.removeExpence(event.submitter.dataset.id);
-            this.dialog.hide();
+            this.dialog.dialogOnHide();
         }
     }
 }
 
 function handleButton(event) {
-    if(event.target && event.target.classList.contains('js-edit-expence')){
-        this.dialog.show();
+    console.log('event', event);
+    if (event.target.classList.contains('js-edit-expence')) {
+        console.log('sdfgsdfg')
+        this.dialog.dialogOnShow();
         let id = event.target.dataset.id;
         openDialog(this.dialog, id);
     };
     if (event.target.id === 'add-expence') {
-        this.dialog.show();
+        this.dialog.dialogOnShow();
         openDialog(this.dialog);
     }
 }
@@ -118,36 +140,47 @@ async function openDialog(dialog, id) {
         let expences = TransformService.fbObjectToArray(data);
         item = expences.filter(item => item.id === id);
         item.forEach(x => {
-            let html = renderDialog(x, id, 'Save', 'btn-save-ex' );
+            let html = renderDialog(x, id, 'Save', 'btn-save-ex');
             dialog.$el.innerHTML = '';
             dialog.$el.insertAdjacentHTML('afterbegin', html);
         })
     }
 }
 
-function renderDialog(item, id, btnName, btnId ) {
+function renderDialog(item, id, btnName, btnId) {
     let categoriesHtml = expencesCategories.map(cat => renderCategories(cat, item.category));
+    let hidden;
+    if (id === '') {
+        hidden = 'u-hidden';
+    } else {
+        hidden = '';
+    }
     return `
-        <div class="dialog-sum-content">
-            <form id="expence-create">
-                <button type="button" class="btn btn-secondary" id="dialog-close">X</button>
-                <div class="form-control">
-                    <label>Sum</label>
-                    <input type="number" name="expenceSum" placeholder="Input" value="${item.expenceSum}">
+        <form id="expence-create">
+            <div class="dialog-sum-content">
+                <div class="dialog-sum-header">
+                    <h1>Add Expense</h1>
+                    <button type="button" class="btn btn-secondary" id="dialog-close"><i class="fas fa-times" style="pointer-events:none"></i></button>
                 </div>
-                <i class="fas fa-user"></i>
-                <ul class="categories">
-                    ${categoriesHtml}
-                </ul>
-                <div class="form-control">
-                    <label>Note</label>
-                    <textarea type="text" placeholder="Note" name="expenceNote">${item.expenceNote}</textarea>
+                
+                <div class="dialog-sum-container">
+                    <div class="form-control">
+                        <label>Sum</label>
+                        <input type="number" name="expenceSum" placeholder="Input" value="${item.expenceSum}">
+                    </div>
+                    <ul class="categories">
+                        ${categoriesHtml}
+                    </ul>
+                    <div class="form-control">
+                        <label>Note</label>
+                        <textarea type="text" placeholder="Note" name="expenceNote">${item.expenceNote}</textarea>
+                    </div>
                 </div>
                 <div class="dialog-sum-buttons">
-                    <button type="submit" id="btn-remove" data-id="${id}" class="btn btn-primary">Remove</button>
-                    <button type="submit" id="${btnId}" data-id="${id}" class="btn btn-primary">Add1</button>
+                    <button type="submit" id="btn-remove" data-id="${id}" class="btn btn-secondary ${hidden}">Remove</button>
+                    <button type="submit" id="${btnId}" data-id="${id}" class="btn btn-primary">${btnName}</button>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     `;
 }

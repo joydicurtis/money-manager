@@ -20,7 +20,10 @@ export class IncomingsComponent extends Component {
         if (incomingsList) {
             await dataHandler.loadIncomings();
         }
+        if (dialog) {
             this.$el.addEventListener('submit', submitInHandler.bind(this));
+            dialog.$el.addEventListener('change', radioHandler.bind(this));
+        }
     }
 
     onShow() {
@@ -34,7 +37,7 @@ function renderCategories(category, selectedCat) {
         return `
         <li class="checked">
             <div class="categories-item">
-                <input type="radio" id="${category.name}" name="inccategory" value="${category.name}" checked>
+                <input type="radio" id="${category.name}" name="inccategory" value="${category.name}" checked data-class="${category.class}">
                 <label for="${category.name}"><span><i class="${category?.class}"></i></span>${category.name}</label>
             </div>
         </li>
@@ -44,13 +47,21 @@ function renderCategories(category, selectedCat) {
         return `
             <li>
                 <div class="categories-item">
-                    <input type="radio" id="${category.name}" name="inccategory" value="${category.name}">
+                    <input type="radio" id="${category.name}" name="inccategory" value="${category.name}" data-class="${category.class}">
                     <label for="${category.name}"><span><i class="${category?.class}"></i></span>${category.name}</label>
                 </div>
             </li>
         `
     }
 }
+
+function radioHandler() {
+    const radioButtons = document.querySelectorAll('input[name="inccategory"]');
+    radioButtons.forEach(item => {
+        item.checked ? item.classList.add('selected') : item.classList.remove('selected');
+    });
+}
+
 
 async function submitInHandler(event) {
     event.preventDefault();
@@ -59,46 +70,48 @@ async function submitInHandler(event) {
         incomingSum: [Validators.required]
     });
     this.loader.show();
-    const formData = {
-        incomingSum: form.incomingSum.value,
-        inccategory: form.inccategory.value,
-        incomingNote: form.incomingNote.value,
-        date: new Date().toLocaleDateString(),
-        ...this.form.value()
-    }
+    let selectedCatClass;
     if (this.form.isValid()) {
+        form.inccategory.forEach(item => {
+            if (item.checked) {
+                selectedCatClass = item.dataset.class;
+            }
+        })
         const formData = {
-            incomingSum: form.incomingSum.value,
-            inccategory: form.inccategory.value,
-            incomingNote: form.incomingNote.value,
-            date: new Date().toLocaleDateString(),
+            expenceSum: form.incomingSum.value,
+            category: form.inccategory.value,
+            categoryClass: selectedCatClass,
+            expenceNote: form.incomingNote.value,
+            operation: 'incoming',
+            date: new Date().toLocaleString(),
             ...this.form.value()
         }
         if (event.submitter.id === 'btn-add') {
             await dataHandler.addIncoming(formData);
-            this.mydialog.hide();
+            this.mydialog.dialogOnHide();
         }
         if (event.submitter.id === 'btn-save') {
             await dataHandler.updateIncoming(event.submitter.dataset.id, formData);
-            this.mydialog.hide();
+            this.mydialog.dialogOnHide();
         }
         this.loader.hide();
         this.form.clear();
     }
     if (event.submitter.id === 'btn-remove') {
         await dataHandler.removeIncoming(event.submitter.dataset.id);
-        this.mydialog.hide();
+        this.mydialog.dialogOnHide();
     }
 }
 
 function handleButton(event) {
-    if(event.target && event.target.classList.contains('js-edit-incomings')){
-        this.mydialog.show();
+    console.log(event);
+    if(event.target.classList.contains('js-edit-expence')){
+        this.mydialog.dialogOnShow();;
         let id = event.target.dataset.id;
         openDialog(this.mydialog, id);
     };
     if (event.target.id === 'add-incoming') {
-        this.mydialog.show();
+        this.mydialog.dialogOnShow();;
         openDialog(this.mydialog);
     }
 }
@@ -132,26 +145,30 @@ async function openDialog(dialog, id) {
 function renderDialog(item, id, btnName, btnId ) {
     let categoriesHtml = incomingsCategories.map(cat => renderCategories(cat, item.inccategory));
     return `
-        <div class="dialog-sum-content">
-            <form id="incoming-create">
-                <button type="button" class="btn btn-secondary" id="dialog-close">X</button>
-                <div class="form-control">
-                    <label>Sum</label>
-                    <input type="number" name="incomingSum" placeholder="Input" value="${item.incomingSum}">
+        <form id="incoming-create"> 
+            <div class="dialog-sum-content"> 
+                <div class="dialog-sum-header">
+                    <h1>Add Incoming</h1>
+                    <button type="button" class="btn btn-secondary" id="dialog-close"><i class="fas fa-times" style="pointer-events:none"></i></button>
                 </div>
-                <i class="fas fa-user"></i>
-                <ul class="categories">
-                    ${categoriesHtml}
-                </ul>
-                <div class="form-control">
-                    <label>Note</label>
-                    <textarea type="text" placeholder="Note" name="incomingNote">${item.incomingNote}</textarea>
+                <div class="dialog-sum-container">
+                    <div class="form-control">
+                        <label>Sum</label>
+                        <input type="number" name="incomingSum" placeholder="Input" value="${item.incomingSum}">
+                    </div>
+                    <ul class="categories">
+                        ${categoriesHtml}
+                    </ul>
+                    <div class="form-control">
+                        <label>Note</label>
+                        <textarea type="text" placeholder="Note" name="incomingNote">${item.incomingNote}</textarea>
+                    </div>
                 </div>
                 <div class="dialog-sum-buttons">
                     <button type="submit" id="btn-remove" data-id="${id}" class="btn btn-primary">Remove</button>
-                    <button type="submit" id="${btnId}" data-id="${id}" class="btn btn-primary">Add2</button>
+                    <button type="submit" id="${btnId}" data-id="${id}" class="btn btn-primary">${btnName}</button>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     `;
 }

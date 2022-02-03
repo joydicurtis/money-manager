@@ -1,6 +1,5 @@
 import { apiService } from "./api.service";
 import { TransformService } from "./transform.service";
-import { LoaderComponent } from "../components/loader.component";
 import { expencesList } from "../index";
 import { incomingsList } from "../index";
 
@@ -31,6 +30,25 @@ class DataHandlerService {
     async removeIncoming(id) {
         await apiService.deleteIncomingById(id).then(setTimeout(fetchIncomings, 2000));
     }
+    async fetchAllOperations(el) {
+        const incomings = await apiService.fetchIncomings().then(fbData => {
+            if (fbData) {
+                return TransformService.fbObjectToArray(fbData);
+            } else return [];
+        })
+        const expences = await apiService.fetchExpences().then(fbData => {
+            if (fbData) {
+                return TransformService.fbObjectToArray(fbData);
+            } else return [];
+        });
+        let sortedops = incomings.concat(expences).sort(function(a, b) {
+            var c = new Date(a.date);
+            var d = new Date(b.date);
+            return c-d;
+        });
+        const html = sortedops.map(op => renderData(op));
+        el.insertAdjacentHTML('afterbegin', html.join(' '));
+    }
 }
 
 async function fetchExpences() {
@@ -47,24 +65,35 @@ async function fetchExpences() {
 async function fetchIncomings() {
     incomingsList.innerHTML='';
     await apiService.fetchIncomings().then(fbData => {
-        const incomings = TransformService.fbObjectToArray(fbData);
-        const html = incomings.map(incoming => renderIncData(incoming));
-        incomingsList.insertAdjacentHTML('afterbegin', html.join(' '));
+        if (fbData) {
+            const incomings = TransformService.fbObjectToArray(fbData);
+            const html = incomings.map(incoming => renderData(incoming));
+            incomingsList.insertAdjacentHTML('afterbegin', html.join(' '));
+        }
     })
 }
 
 function renderData(data) {
     if (data) {
         return `
-            <div class="expences-list-item"><i class="fas fa-user"></i> ${data.expenceSum}   ${data.category}    ${data?.expenceNote}    ${data.date}</div><button class="btn btn-secondary js-edit-expence" data-id="${data.id}">Edit</button>
-        `
-    }
-}
-
-function renderIncData(data) {
-    if (data) {
-        return `
-            <div class="expences-list-item"><i class="fas fa-user"></i> ${data.incomingSum}   ${data.inccategory}    ${data?.incomingNote}    ${data.date}</div><button class="btn btn-secondary js-edit-incomings" data-id="${data.id}">Edit</button>
+            <div class="expences-list-item ${data.operation}">
+                <div class="expences-list-item-info">
+                    <div class="expences-list-item-info-item">
+                        <div class="expences-list-item__icon">
+                            <span><i class="${data.categoryClass}"></i></span>
+                        </div>
+                        <div class="expences-list-item-text">
+                            <div class="expences-list-item-text_cat">${data.category}</div>
+                            <div class="expences-list-item__date"> ${data.date}</div>
+                        </div>    
+                    </div>
+                    <div class="expences-list-item__sum">
+                        <span>${data.expenceSum}</span>
+                        <button class="btn btn-secondary js-edit-expence" data-id="${data.id}"><i class="fas fa-pen" style="pointer-events:none"></i></button>
+                    </div>
+                </div>
+                <div class="expences-list-item__note">${data?.expenceNote}</div>
+            </div>
         `
     }
 }

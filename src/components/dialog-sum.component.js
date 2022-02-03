@@ -17,7 +17,7 @@ export class DialogSumComponent extends Component {
 function handleButton(event) {
     if (event.target.id === 'dialog-close') {
         this.dialog.forEach(item => {
-            item.component.hide()
+            item.component.dialogOnHide();
         })
     }
 }
