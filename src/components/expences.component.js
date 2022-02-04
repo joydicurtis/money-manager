@@ -8,11 +8,12 @@ import { dataHandler } from "../services/data-handler.service";
 import { expencesList } from "..";
 
 export class ExpencesComponent extends Component {
-    constructor(id, {loader}, {sumDialog}, expencesList) {
+    constructor(id, {loader}, {sumDialog}, expencesList, {header}) {
         super(id);
         this.loader = loader;
         this.expencesList = expencesList;
         this.dialog = sumDialog;
+        this.header = header;
         if (this.expencesList && this.dialog) {
             this.init(this.expencesList, this.dialog)
         }
@@ -30,6 +31,7 @@ export class ExpencesComponent extends Component {
     }
 
     onShow() {
+        
     }
     onHide() {
     }
@@ -108,9 +110,7 @@ async function submitHandler(event) {
 }
 
 function handleButton(event) {
-    console.log('event', event);
     if (event.target.classList.contains('js-edit-expence')) {
-        console.log('sdfgsdfg')
         this.dialog.dialogOnShow();
         let id = event.target.dataset.id;
         openDialog(this.dialog, id);

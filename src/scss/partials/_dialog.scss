@@ -5,6 +5,7 @@
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 2;
     .dialog-sum-content {
         position: absolute;
         top: 50%;
@@ -23,6 +24,11 @@
             width: 500px;
             height: 500px;
             left: 50%;
+            @include breakpoint(medium) {
+                width: 720px;
+                height: 500px;
+                margin-left: -360px;
+            }
         }
         .form-control {
             padding: 0 16px;
@@ -30,7 +36,7 @@
         }
     }
     .dialog-sum-container {
-        max-height: 600px;
+        max-height: 445px;
         overflow-y: auto;
         border-top: solid 1px $sh-white;
         border-bottom: solid 1px $sh-white;
@@ -41,9 +47,15 @@
         padding: 8px 16px;
         justify-content: space-between;
         align-items: center;
+        @include breakpoint(medium) {
+            padding: 16px;
+        }
         h1 {
             font-size: 16px;
             margin-bottom: 0;
+            @include breakpoint(medium) {
+                font-size: 18px;
+            }
         }
         .btn {
             padding: 0;
@@ -62,6 +74,9 @@
         position: absolute;
         width: 100%;
         bottom: 0;
+        @include breakpoint(medium) {
+            padding: 16px;
+        }
         .btn {
             &:first-child {
                 margin-right: 5px;

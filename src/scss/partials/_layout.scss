@@ -4,14 +4,24 @@ $content-width--small: 940px;
 $content-gutters: 25px;
 
 body {
-    background: $color-secondary;
+    background: $black;
     color: $white;
 }
 
 main {
-    background: $color-secondary;
-    border-left: solid 1px rgba($white, .2);
-    border-right: solid 1px rgba($white, .2);
+    >.container {
+        background: $color-secondary;
+        border: solid 1px rgba($white, .2);
+        border-radius: 0 0 24px 24px;
+        margin-bottom: 32px;   
+    }
+    #expences &,
+    #incomings & {
+        .container {
+            position: relative;
+        }
+    }
+    
 }
 .row {
     position: relative;
@@ -37,8 +47,13 @@ main {
 }
 
 .container {
+    position: relative;
     width: 100%;
-    padding: 0 16px;
+    padding: 16px;
+    @include breakpoint(medium) {
+        max-width: 720px;
+        margin: 0 auto;
+    }
 }
 
 //in case we have sidebar

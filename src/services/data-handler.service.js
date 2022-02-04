@@ -88,7 +88,7 @@ function renderData(data) {
                         </div>    
                     </div>
                     <div class="expences-list-item__sum">
-                        <span>${data.expenceSum}</span>
+                        <span>${data.expenceSum} <span>UAH</span></span>
                         <button class="btn btn-secondary js-edit-expence" data-id="${data.id}"><i class="fas fa-pen" style="pointer-events:none"></i></button>
                     </div>
                 </div>

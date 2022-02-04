@@ -15,6 +15,9 @@ textarea {
     border-radius: 4px;
     -webkit-appearance: none;
     color: $white;
+    @include breakpoint(medium) { 
+        font-size: 18px;
+    }
     &.invalid {
         border: solid 2px red;
         &::placeholder {
@@ -41,6 +44,9 @@ textarea {
     font-size: 12px;
     color: red;
     font-weight: 600;
+    @include breakpoint(medium) {
+        font-size: 14px;
+    }
 }
 
 
@@ -78,33 +84,9 @@ label {
     display: block;
     font-weight: $fontWeight-semibold;
     font-size: 12px;
-}
-
-.converter-form {
-    margin-bottom: 40px;
-}
-
-.converter-form-item {
-    position: relative;
-    margin-bottom: 12px;
-    flex: 1 1 auto;
-}
-
-.converter-form-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    >.btn {
-        &.btn-secondary {
-            margin-top: 20px;
-        }
+    @include breakpoint(medium) {
+        font-size: 14px;
     }
-}
-
-.converter-form-item-result {
-    font-size: $fontSize-large;
-    font-weight: $fontWeight-semibold;
-    margin-bottom: 24px;
 }
 
 .btn {
@@ -112,6 +94,9 @@ label {
     margin: 0;
     font-size: 14px;
     font-weight: 600;
+    @include breakpoint(medium) {
+        font-size: 18px;
+    }
     &.btn-primary {
         border: solid 2px $color-primary;
         background: $color-primary;
@@ -131,6 +116,24 @@ label {
         position: absolute;
         right: 0;
         margin: 0;
+    }
+    &.btn-float {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: -70px;
+        right: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        text-align: center;
+        z-index: 1;
+        @include breakpoint(medium) { 
+            width: 50px;
+            height: 50px;
+            top: -42px
+        }
     }
 }
 

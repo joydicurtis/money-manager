@@ -16,7 +16,12 @@
             </div>
             <main>
                 <header class="siteHeader" id="header">
-                    Header
+                    <div class="header">
+                        <canvas id="myChart" width="400" height="400"></canvas>
+                    </div>
+                    <div class="header-legend" id="header-container">
+                        
+                    </div>
                 </header>
                 <ul class="tabs" id="navigation">
                     <li>
@@ -32,7 +37,9 @@
                 <div class="container">
                     <div id="all-operations"></div>
                     <div id="expences" class="u-hidden">
-                        <button type="button" class="btn btn-primary" id="add-expence"><i class="fas fa-plus" style="pointer-events:none"></i></button>
+                        <div class="container">
+                            <button type="button" class="btn btn-primary btn-float" id="add-expence"><i class="fas fa-plus" style="pointer-events:none"></i></button>
+                        </div>
                         <div id="expences-list"></div>
                         <div class="dialog-sum u-hidden" id="sum-e-dialog">
                             <div class="dialog-sum-content">
@@ -43,8 +50,10 @@
                         </div>
                     </div>
                     <div id="incomings" class="u-hidden">
+                        <div class="container">
+                            <button type="button" class="btn btn-primary btn-float" id="add-incoming"><i class="fas fa-plus" style="pointer-events:none"></i></button>
+                        </div>
                         <div id="incomings-list"></div>
-                        <button type="button" class="btn btn-primary" id="add-incoming"><i class="fas fa-plus" style="pointer-events:none"></i></button>
                         <div class="dialog-sum u-hidden" id="sum-i-dialog">
                             <div class="dialog-sum-content"></div>
                         </div>
@@ -53,7 +62,6 @@
             </main>
         </div>
         <footer class="siteFooter">
-            <h1>Footer</h1>
         </footer>
     </body>
 </html>

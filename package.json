@@ -45,6 +45,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "babel-loader": "^8.2.3",
+    "chart.js": "^3.7.0",
     "cors": "^2.8.5",
     "firebase": "^9.6.5",
     "firebase-functions": "^3.16.0"

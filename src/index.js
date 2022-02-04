@@ -9,20 +9,20 @@ import { LoaderComponent } from "./components/loader.component";
 import { ExpencesListComponent } from "./components/expences-list.component";
 import { AllOperationsComponent} from "./components/all-operations.component";
 //import { CategoriesComponent } from "./components/categories.component";
-
 import '@fortawesome/fontawesome-free/js/all.js';
+
 export const expencesList = document.getElementById('expences-list');
 export const incomingsList = document.getElementById('incomings-list');
 
-const allOperations = new AllOperationsComponent('all-operations');
+const allOperations = new AllOperationsComponent('all-operations', {header});
 const sumDialog = new DialogSumComponent('sum-e-dialog');
 const incDialog = new IncDialogComponent('sum-i-dialog');
 const header = new HeaderComponent('header');
 const navigation = new NavigationComponent('navigation');
 const loader = new LoaderComponent('loader');
-const incomings = new IncomingsComponent('incomings', {loader}, {incDialog}, incomingsList);
+const incomings = new IncomingsComponent('incomings', {loader}, {incDialog}, incomingsList, {header});
 //const categories = new CategoriesComponent('categories');
-const expences = new ExpencesComponent('expences', {loader}, {sumDialog}, expencesList);
+const expences = new ExpencesComponent('expences', {loader}, {sumDialog}, expencesList, {header});
 //const expenceForm = new ExpenceFormComponent('expence-create', {loader}, {sumDialog}, {expencesList});
 
 navigation.registerTabs([

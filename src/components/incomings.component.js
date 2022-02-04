@@ -104,7 +104,6 @@ async function submitInHandler(event) {
 }
 
 function handleButton(event) {
-    console.log(event);
     if(event.target.classList.contains('js-edit-expence')){
         this.mydialog.dialogOnShow();;
         let id = event.target.dataset.id;
@@ -144,6 +143,12 @@ async function openDialog(dialog, id) {
 
 function renderDialog(item, id, btnName, btnId ) {
     let categoriesHtml = incomingsCategories.map(cat => renderCategories(cat, item.inccategory));
+    let hidden;
+    if (id === '') {
+        hidden = 'u-hidden';
+    } else {
+        hidden = '';
+    }
     return `
         <form id="incoming-create"> 
             <div class="dialog-sum-content"> 
@@ -165,7 +170,7 @@ function renderDialog(item, id, btnName, btnId ) {
                     </div>
                 </div>
                 <div class="dialog-sum-buttons">
-                    <button type="submit" id="btn-remove" data-id="${id}" class="btn btn-primary">Remove</button>
+                    <button type="submit" id="btn-remove" data-id="${id}" class="btn btn-secondary ${hidden}">Remove</button>
                     <button type="submit" id="${btnId}" data-id="${id}" class="btn btn-primary">${btnName}</button>
                 </div>
             </div>

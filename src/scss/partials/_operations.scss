@@ -6,8 +6,14 @@
         font-size: 14px;
         margin-bottom: 12px;
         padding: 4px 0;
+        @include breakpoint(medium) {
+            font-size: 18px;
+        }
         .expences-list-item__icon {
             height: 40px;
+            @include breakpoint(medium) { 
+                height: 60px;
+            }
             span {
                 display: inline-block;
                 flex: 40px 0 0;
@@ -20,6 +26,14 @@
                 font-size: 16px;
                 width: 40px;
                 height: 40px;
+                @include breakpoint(medium) {
+                    flex: 60px 0 0;
+                    width: 60px;
+                    height: 60px;
+                    line-height: 60px;
+                    border-radius: 12px;
+                    font-size: 24px;
+                }
             }
         }
         .expences-list-item-info-item {
@@ -31,10 +45,14 @@
         }
         .expences-list-item-text_cat {
             font-weight: $fontWeight-semibold;
+            margin-bottom: 8px;
         }
         .expences-list-item__date {
             font-size: 10px;
             color: $sh-white;
+            @include breakpoint(medium) {
+                font-size: 14px;
+            }
         }
     }
     &.incoming {
@@ -58,8 +76,14 @@
         justify-content: flex-end;
         align-items: center;
         font-size: 18px;
-        span {
+        @include breakpoint(medium) {
+            font-size: 24px;
+        }
+        >span {
             margin-right: 10px;
+            span {
+                color: $sh-white;
+            }
         }
         .btn {
             padding: 0;
